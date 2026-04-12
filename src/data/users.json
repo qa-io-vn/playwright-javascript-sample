@@ -1,0 +1,7 @@
+[
+  { "username": "standard_user", "type": "valid" },
+  { "username": "problem_user", "type": "problem" },
+  { "username": "performance_glitch_user", "type": "glitch" },
+  { "username": "visual_user", "type": "visual" },
+  { "username": "error_user", "type": "error" }
+]
