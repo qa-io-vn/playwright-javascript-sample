@@ -16,29 +16,23 @@ class InventoryPage extends BasePage {
   }
 
   async addItemToCart(index = 0) {
-    const items = await this.page.$$(this.inventoryItem);
-    if (items.length > index) {
-      const button = await items[index].$(this.addToCartButton);
-      if (button) {
-        await button.click();
-      }
-    }
+    const item = this.page.locator(this.inventoryItem).nth(index);
+    const button = item.locator(this.addToCartButton);
+    await button.click();
   }
 
   async getItemName(index = 0) {
-    const names = await this.page.$$(this.inventoryItemName);
-    if (names.length > index) {
-      return await names[index].textContent();
-    }
-    return '';
+    return await this.page.locator(this.inventoryItemName).nth(index).textContent();
   }
 
   async getCartCount() {
-    const badge = await this.page.$(this.cartBadge);
-    if (badge) {
-      return await badge.textContent();
+    try {
+      // Wait for badge to appear if not there yet (some buffer for CI)
+      await this.page.waitForSelector(this.cartBadge, { state: 'visible', timeout: 5000 });
+      return await this.page.textContent(this.cartBadge);
+    } catch (e) {
+      return '0';
     }
-    return '0';
   }
 
   async navigateToCart() {

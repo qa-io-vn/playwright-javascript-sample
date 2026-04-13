@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test",
+    "test": "npx playwright test; npm run report:generate && npm run report:open",
     "test:smoke": "npx playwright test --grep @smoke",
     "test:sanity": "npx playwright test --grep @sanity",
     "test:regression": "npx playwright test --grep @regression",

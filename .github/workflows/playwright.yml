@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pages: write
       id-token: write
 
@@ -54,10 +54,10 @@ jobs:
         path: allure-report/
         retention-days: 30
 
-    # Optional: Deploy to GitHub Pages (Requires GitHub Pages to be enabled for the repo)
-    # - name: Deploy to GitHub Pages
-    #   if: always()
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_dir: ./allure-report
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
